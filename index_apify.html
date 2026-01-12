@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apify Leads Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">🚀 Apify Leads Finder</h1>
+            <p class="text-gray-600">Powerful B2B lead generation with verified emails</p>
+        </div>
+
+        <!-- Apify Notice -->
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-8">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-green-800">
+                        Using Apify Leads Finder - Much better than Apollo!
+                    </p>
+                    <p class="text-sm text-green-700">
+                        Get verified emails, LinkedIn profiles, and rich company data
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lead Search Form -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">🔍 Search for Leads</h2>
+            <p class="text-gray-600 mb-4">Fill in your search criteria to find targeted leads</p>
+            
+            <form id="searchForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Job Titles -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Job Titles</label>
+                    <input type="text" id="jobTitles" placeholder="e.g., Founder, CEO, CTO" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    <p class="text-xs text-gray-500 mt-1">Comma-separated job titles</p>
+                </div>
+                
+                <!-- Locations -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Locations</label>
+                    <input type="text" id="locations" placeholder="e.g., United States, Canada, UK" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    <p class="text-xs text-gray-500 mt-1">Comma-separated locations</p>
+                </div>
+                
+                <!-- Industries (SINGLE dropdown for multiple selections) -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Industries</label>
+                    <select id="industries" multiple class="w-full px-3 py-2 border border-gray-300 rounded-md h-24">
+                        <option value="information technology & services">Information Technology & Services</option>
+                        <option value="computer software">Computer Software</option>
+                        <option value="internet">Internet</option>
+                        <option value="marketing & advertising">Marketing & Advertising</option>
+                        <option value="management consulting">Management Consulting</option>
+                        <option value="financial services">Financial Services</option>
+                        <option value="consumer services">Consumer Services</option>
+                        <option value="hospital & health care">Hospital & Health Care</option>
+                        <option value="health, wellness & fitness">Health, Wellness & Fitness</option>
+                        <option value="real estate">Real Estate</option>
+                        <option value="restaurants">Restaurants</option>
+                        <option value="retail">Retail</option>
+                        <option value="education management">Education Management</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="media production">Media Production</option>
+                        <option value="design">Design</option>
+                        <option value="professional training & coaching">Professional Training & Coaching</option>
+                        <option value="transportation/trucking/railroad">Transportation/Trucking/Railroad</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="biotechnology">Biotechnology</option>
+                        <option value="pharmaceuticals">Pharmaceuticals</option>
+                        <option value="medical devices">Medical Devices</option>
+                        <option value="e-learning">E-Learning</option>
+                        <option value="research">Research</option>
+                        <option value="higher education">Higher Education</option>
+                        <option value="government administration">Government Administration</option>
+                        <option value="nonprofit organization management">Nonprofit Organization Management</option>
+                        <option value="legal services">Legal Services</option>
+                        <option value="accounting">Accounting</option>
+                        <option value="architecture & planning">Architecture & Planning</option>
+                        <option value="construction">Construction</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="automotive">Automotive</option>
+                        <option value="telecommunications">Telecommunications</option>
+                        <option value="insurance">Insurance</option>
+                        <option value="hospitality">Hospitality</option>
+                        <option value="events services">Events Services</option>
+                    </select>
+                    <p class="text-xs text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple industries</p>
+                </div>
+                
+                <!-- Company Sizes -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Company Sizes</label>
+                    <select id="companySizes" multiple class="w-full px-3 py-2 border border-gray-300 rounded-md h-24">
+                        <option value="1-10">1-10 employees</option>
+                        <option value="11-20">11-20 employees</option>
+                        <option value="21-50">21-50 employees</option>
+                        <option value="51-100">51-100 employees</option>
+                        <option value="101-200">101-200 employees</option>
+                        <option value="201-500">201-500 employees</option>
+                        <option value="501-1000">501-1000 employees</option>
+                        <option value="1001-2000">1001-2000 employees</option>
+                        <option value="2001-5000">2001-5000 employees</option>
+                        <option value="5001-10000">5001-10000 employees</option>
+                        <option value="10001-20000">10001-20000 employees</option>
+                        <option value="20001-50000">20001-50000 employees</option>
+                        <option value="50000+">50000+ employees</option>
+                    </select>
+                    <p class="text-xs text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple</p>
+                </div>
+                
+                <!-- Funding Stages -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Funding Stages</label>
+                    <select id="fundingStages" multiple class="w-full px-3 py-2 border border-gray-300 rounded-md h-24">
+                        <option value="seed">Seed</option>
+                        <option value="angel">Angel</option>
+                        <option value="series_a">Series A</option>
+                        <option value="series_b">Series B</option>
+                        <option value="series_c">Series C</option>
+                        <option value="series_d">Series D</option>
+                        <option value="series_e">Series E</option>
+                        <option value="series_f">Series F</option>
+                        <option value="venture_round">Venture Round</option>
+                        <option value="private_equity_round">Private Equity</option>
+                    </select>
+                    <p class="text-xs text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple</p>
+                </div>
+                
+                <!-- Number of Leads -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Number of Leads</label>
+                    <select id="numberOfLeads" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <option value="50">50 leads (Quick test)</option>
+                        <option value="100" selected>100 leads (Free plan limit)</option>
+                        <option value="500">500 leads</option>
+                        <option value="1000">1000 leads</option>
+                        <option value="5000">5000 leads</option>
+                    </select>
+                    <p class="text-xs text-gray-500 mt-1">Free plan: 100 leads/run</p>
+                </div>
+            </form>
+
+            <!-- Search Button -->
+            <div class="flex justify-center mt-6">
+                <button id="searchBtn" class="bg-green-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-green-700 transition-colors">
+                    🚀 Search for Leads
+                </button>
+            </div>
+
+            <!-- Run Status -->
+            <div id="runStatus" class="hidden bg-gray-50 rounded-lg p-4 mt-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="font-semibold">Search Status</h3>
+                        <p class="text-sm text-gray-600" id="statusText">Starting search...</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button id="checkStatusBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Check Status</button>
+                        <button id="downloadResultsBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 hidden">Download Results</button>
+                    </div>
+                </div>
+                <div class="mt-2 flex justify-between items-center">
+                    <div class="text-sm text-gray-600">
+                        Run ID: <span id="runIdDisplay" class="font-mono"></span>
+                    </div>
+                    <div class="text-sm text-gray-600">
+                        Progress: <span id="progressDisplay" class="font-semibold">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CSV Upload -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">📁 Upload CSV File</h2>
+            <p class="text-gray-600 mb-4">Upload existing leads for analysis</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">CSV File</label>
+                    <input type="file" id="csvFile" accept=".csv" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    <p class="text-xs text-gray-500 mt-1">Upload existing leads</p>
+                </div>
+                <div class="flex items-end">
+                    <button id="uploadBtn" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                        Upload & Analyze
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="hidden">
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-white rounded-lg p-6 shadow">
+                    <h3 class="text-sm font-medium text-gray-600">Total Leads</h3>
+                    <p id="totalLeads" class="text-2xl font-bold text-gray-900">0</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow">
+                    <h3 class="text-sm font-medium text-gray-600">Verified Emails</h3>
+                    <p id="verifiedEmails" class="text-2xl font-bold text-green-600">0</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow">
+                    <h3 class="text-sm font-medium text-gray-600">Average Score</h3>
+                    <p id="avgScore" class="text-2xl font-bold text-blue-600">0</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow">
+                    <h3 class="text-sm font-medium text-gray-600">Source</h3>
+                    <p id="sourceDisplay" class="text-2xl font-bold text-green-600">Apify</p>
+                </div>
+            </div>
+
+            <!-- Export Button -->
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h3 class="text-lg font-semibold">Lead Results</h3>
+                    <p class="text-sm text-gray-600">Extracted via Apify Leads Finder</p>
+                </div>
+                <button id="exportBtn" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                    Export to CSV
+                </button>
+            </div>
+
+            <!-- Leads Grid -->
+            <div id="leadsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Leads will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentRunId = '';
+        let allLeads = [];
+
+        // Search for leads
+        document.getElementById('searchBtn').addEventListener('click', async () => {
+            const jobTitles = document.getElementById('jobTitles').value.split(',').map(t => t.trim()).filter(t => t);
+            const locations = document.getElementById('locations').value.split(',').map(t => t.trim()).filter(t => t);
+            const industries = Array.from(document.getElementById('industries').selectedOptions).map(opt => opt.value);
+            const companySizes = Array.from(document.getElementById('companySizes').selectedOptions).map(opt => opt.value);
+            const fundingStages = Array.from(document.getElementById('fundingStages').selectedOptions).map(opt => opt.value);
+            const numberOfLeads = parseInt(document.getElementById('numberOfLeads').value);
+
+            // DEBUG: Show what data was captured
+            console.log('=== DEBUG INFO ===');
+            console.log('Job Titles:', jobTitles);
+            console.log('Locations:', locations);
+            console.log('Industries:', industries);
+            console.log('Company Sizes:', companySizes);
+            console.log('Funding Stages:', fundingStages);
+            console.log('Number of Leads:', numberOfLeads);
+            console.log('==================');
+
+            if (jobTitles.length === 0 && locations.length === 0 && industries.length === 0) {
+                alert('Please enter at least one search criterion (Job Titles, Locations, or Industries)');
+                return;
+            }
+
+            document.getElementById('statusText').textContent = "🚀 Starting lead search...";
+            document.getElementById('runStatus').classList.remove('hidden');
+
+            try {
+                const response = await fetch('/api/search-leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        job_titles: jobTitles,
+                        locations: locations,
+                        industries: industries,
+                        company_sizes: companySizes,
+                        funding_stages: fundingStages,
+                        number_of_leads: numberOfLeads
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    currentRunId = data.data.run_id;
+                    document.getElementById('runIdDisplay').textContent = currentRunId;
+                    document.getElementById('statusText').textContent = "✅ Search started! Checking status...";
+                    
+                    alert(`Lead search started successfully! Run ID: ${currentRunId}\n\nThis may take a few minutes. You can check status manually or wait for completion.`);
+                    
+                    // Start checking status automatically
+                    setTimeout(() => checkRunStatus(), 60000); // Check after 1 minute
+                } else {
+                    alert('Search failed: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error starting search');
+            }
+        });
+
+        // Check run status
+        document.getElementById('checkStatusBtn').addEventListener('click', () => {
+            checkRunStatus();
+        });
+
+        async function checkRunStatus() {
+            if (!currentRunId) {
+                alert('No active search');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/check-run-status?runId=${currentRunId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const result = data.data;
+                    const status = result.status;
+                    
+                    document.getElementById('statusText').textContent = `Status: ${status}`;
+                    document.getElementById('progressDisplay').textContent = status;
+                    
+                    if (status === 'completed') {
+                        document.getElementById('downloadResultsBtn').classList.remove('hidden');
+                        allLeads = result.leads;
+                        displayLeads(allLeads);
+                        updateStats(allLeads, 'Apify Leads Finder');
+                        document.getElementById('resultsSection').classList.remove('hidden');
+                        alert(`Search completed! Found ${result.total} leads.`);
+                    } else if (status === 'RUNNING' || status === 'READY') {
+                        document.getElementById('statusText').textContent = `Status: ${status} - Still processing...`;
+                        document.getElementById('downloadResultsBtn').classList.add('hidden');
+                    } else {
+                        document.getElementById('statusText').textContent = `Status: ${status} - Check failed`;
+                    }
+                } else {
+                    alert('Error checking status: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Download results
+        document.getElementById('downloadResultsBtn').addEventListener('click', () => {
+            if (allLeads.length > 0) {
+                document.getElementById('resultsSection').classList.remove('hidden');
+                alert(`Results ready! ${allLeads.length} leads found.`);
+            }
+        });
+
+        // Upload CSV
+        document.getElementById('uploadBtn').addEventListener('click', async () => {
+            const file = document.getElementById('csvFile').files[0];
+            if (!file) {
+                alert('Please select a CSV file');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('/api/upload-csv', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    allLeads = data.leads;
+                    displayLeads(allLeads);
+                    updateStats(allLeads, 'CSV Upload');
+                    document.getElementById('resultsSection').classList.remove('hidden');
+                } else {
+                    alert('Error uploading file: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error uploading file');
+            }
+        });
+
+        // Display leads
+        function displayLeads(leads) {
+            const leadsGrid = document.getElementById('leadsGrid');
+            leadsGrid.innerHTML = '';
+
+            if (leads.length === 0) {
+                leadsGrid.innerHTML = `
+                    <div class="col-span-full bg-white rounded-lg p-8 text-center shadow">
+                        <p class="text-gray-500">No leads found.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            leads.forEach(lead => {
+                const leadCard = document.createElement('div');
+                leadCard.className = 'bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer';
+                leadCard.onclick = () => showLeadModal(lead);
+
+                leadCard.innerHTML = `
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="${lead.profile_photo}" alt="${lead.name}" class="w-16 h-16 rounded-full mr-4">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">${lead.name}</h3>
+                                <p class="text-gray-600">${lead.position}</p>
+                                <p class="text-sm text-gray-500">${lead.company}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="text-xs text-gray-600">Score</p>
+                                <p class="text-lg font-bold ${getScoreColor(lead.analysis.score)}">${lead.analysis.score}</p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="text-xs text-gray-600">Tier</p>
+                                <p class="text-lg font-bold text-purple-600">${lead.analysis.tier}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <span class="px-3 py-1 bg-${getCategoryColor(lead.analysis.category)}-100 text-${getCategoryColor(lead.analysis.category)}-800 text-sm font-medium rounded-full">
+                                ${lead.analysis.category}
+                            </span>
+                            <span class="text-sm text-gray-600">${lead.location}</span>
+                        </div>
+
+                        <div class="mt-4 flex space-x-2">
+                            ${lead.contact_info.email ? `<span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Email</span>` : ''}
+                            ${lead.email_verified ? `<span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">✅ Verified</span>` : ''}
+                            ${lead.contact_info.phone ? `<span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Phone</span>` : ''}
+                            ${lead.contact_info.linkedin ? `<span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded">LinkedIn</span>` : ''}
+                            ${lead.contact_info.company_website ? `<span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">Website</span>` : ''}
+                        </div>
+                    </div>
+                `;
+
+                leadsGrid.appendChild(leadCard);
+            });
+        }
+
+        // Get score color
+        function getScoreColor(score) {
+            if (score >= 80) return 'text-green-600';
+            if (score >= 60) return 'text-blue-600';
+            if (score >= 40) return 'text-yellow-600';
+            return 'text-red-600';
+        }
+
+        // Get category color
+        function getCategoryColor(category) {
+            switch (category) {
+                case 'High Value': return 'green';
+                case 'Medium Value': return 'blue';
+                case 'Startup': return 'yellow';
+                default: return 'gray';
+            }
+        }
+
+        // Update stats
+        function updateStats(leads, source) {
+            document.getElementById('totalLeads').textContent = leads.length;
+            
+            const verifiedCount = leads.filter(l => l.email_verified).length;
+            document.getElementById('verifiedEmails').textContent = verifiedCount;
+            
+            const avgScore = leads.length > 0 ? Math.round(leads.reduce((sum, l) => sum + l.analysis.score, 0) / leads.length) : 0;
+            document.getElementById('avgScore').textContent = avgScore;
+            
+            document.getElementById('sourceDisplay').textContent = source;
+        }
+
+        // Modal for detailed lead view
+        function showLeadModal(lead) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex items-center">
+                                <img src="${lead.profile_photo}" alt="${lead.name}" class="w-20 h-20 rounded-full mr-4">
+                                <div>
+                                    <h2 class="text-2xl font-bold">${lead.name}</h2>
+                                    <p class="text-gray-600">${lead.position} at ${lead.company}</p>
+                                    <p class="text-sm text-gray-500">${lead.location}</p>
+                                </div>
+                            </div>
+                            <button onclick="this.closest('.fixed').remove()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-gray-50 p-4 rounded">
+                                <h3 class="font-semibold mb-2">Company Analysis</h3>
+                                <p class="text-3xl font-bold ${getScoreColor(lead.analysis.score)}">${lead.analysis.score}/100</p>
+                                <p class="text-sm text-gray-600 mt-1">Tier: ${lead.analysis.tier}</p>
+                                <p class="text-sm text-gray-600">Category: ${lead.analysis.category}</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded">
+                                <h3 class="font-semibold mb-2">Email Status</h3>
+                                <span class="px-3 py-1 bg-${lead.email_verified ? 'green' : 'red'}-100 text-${lead.email_verified ? 'green' : 'red'}-800 font-medium rounded-full">
+                                    ${lead.email_verified ? 'VERIFIED EMAIL' : 'UNVERIFIED'}
+                                </span>
+                                <p class="text-sm text-gray-600 mt-2">Source: ${lead.scraper_source}</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h3 class="font-semibold mb-2">Insights</h3>
+                            <ul class="space-y-1">
+                                ${lead.analysis.insights.map(insight => `<li class="text-sm text-gray-700">• ${insight}</li>`).join('')}
+                            </ul>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <h3 class="font-semibold mb-2">Contact Info</h3>
+                                ${lead.contact_info.email ? `<p class="text-sm"><span class="font-medium">Email:</span> ${lead.contact_info.email} ${lead.email_verified ? '<span class="text-green-600 font-bold">✅</span>' : ''}</p>` : ''}
+                                ${lead.contact_info.phone ? `<p class="text-sm"><span class="font-medium">Phone:</span> ${lead.contact_info.phone}</p>` : ''}
+                                ${lead.contact_info.linkedin ? `<p class="text-sm"><span class="font-medium">LinkedIn:</span> <a href="${lead.contact_info.linkedin}" target="_blank" class="text-blue-600">${lead.contact_info.linkedin}</a></p>` : ''}
+                                ${lead.contact_info.company_website ? `<p class="text-sm"><span class="font-medium">Website:</span> <a href="${lead.contact_info.company_website}" target="_blank" class="text-blue-600">${lead.contact_info.company_website}</a></p>` : ''}
+                            </div>
+                            <div>
+                                <h3 class="font-semibold mb-2">Company Details</h3>
+                                <p class="text-sm"><span class="font-medium">Company:</span> ${lead.company}</p>
+                                <p class="text-sm"><span class="font-medium">Website:</span> ${lead.company_website}</p>
+                                <p class="text-sm"><span class="font-medium">Location:</span> ${lead.location}</p>
+                                <p class="text-sm"><span class="font-medium">Source:</span> ${lead.scraper_source}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        // Export CSV
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            if (allLeads.length === 0) {
+                alert('No leads to export');
+                return;
+            }
+
+            try {
+                const csvContent = "data:text/csv;charset=utf-8," + 
+                    "Name,Email,Company,Position,LinkedIn,Company Website,Location,Phone,Company Score,Company Tier,Company Category\n" +
+                    allLeads.map(lead => 
+                        `"${lead.name}","${lead.email}","${lead.company}","${lead.position}","${lead.linkedin_url}","${lead.company_website}","${lead.location}","${lead.phone}","${lead.analysis.score}","${lead.analysis.tier}","${lead.analysis.category}"`
+                    ).join("\n");
+
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "apify_leads.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                alert('Leads exported to CSV!');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error exporting');
+            }
+        });
+    </script>
+</body>
+</html>
