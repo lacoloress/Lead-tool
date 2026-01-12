@@ -1,7 +1,7 @@
 """Leads service for CRUD operations with CSV storage."""
 
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 import polars as pl
@@ -128,7 +128,7 @@ class LeadsService:
                 analysis=analysis,
                 source="csv_upload",
                 email_verified=False,
-                created_at=datetime.utcnow(),
+                created_at=datetime.now(timezone.utc),
             )
             leads.append(lead)
 

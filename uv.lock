@@ -312,7 +312,7 @@ wheels = [
 [[package]]
 name = "lead-tool"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "apify-client" },
     { name = "fastapi" },

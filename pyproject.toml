@@ -18,6 +18,13 @@ dependencies = [
 [project.scripts]
 lead-tool = "lead_tool.main:main"
 
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["lead_tool*"]
+
 [tool.uv]
 dev-dependencies = [
     "pytest>=8.0.0",

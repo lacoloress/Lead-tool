@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     apify_api_token: str = ""
+    apify_actor_id: str = ""
     data_dir: Path = Path("./data")
 
     model_config = SettingsConfigDict(

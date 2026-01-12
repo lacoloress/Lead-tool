@@ -1,10 +1,15 @@
 """Pydantic models for Lead Tool."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Literal
 
 from pydantic import BaseModel, Field
+
+
+def _utcnow() -> datetime:
+    """Return current UTC datetime (timezone-aware)."""
+    return datetime.now(timezone.utc)
 
 
 class Industry(str, Enum):
@@ -120,7 +125,7 @@ class Lead(BaseModel):
     analysis: Analysis
     source: Literal["search", "csv_upload"]
     email_verified: bool = False
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=_utcnow)
 
 
 class SearchParams(BaseModel):
@@ -152,5 +157,5 @@ class ApiResponse[T](BaseModel):
 
     status: bool
     data: T | None = None
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=_utcnow)
     error: ErrorDetail | None = None
