@@ -1,0 +1,25 @@
+[project]
+name = "lead-tool"
+version = "0.1.0"
+description = "B2B Lead Generation Tool for finding and qualifying business leads"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "apify-client>=2.4.0",
+    "fastapi>=0.128.0",
+    "polars>=1.37.0",
+    "pydantic>=2.12.5",
+    "pydantic-settings>=2.12.0",
+    "python-dotenv>=1.2.1",
+    "streamlit>=1.52.2",
+    "uvicorn>=0.40.0",
+]
+
+[project.scripts]
+lead-tool = "lead_tool.main:main"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.0.0",
+    "ruff>=0.4.0",
+]
