@@ -48,3 +48,9 @@ build/
 
 # Uploads
 uploads/
+
+# MCP
+.mcp.json
+
+# Test outputs
+*_test.txt
